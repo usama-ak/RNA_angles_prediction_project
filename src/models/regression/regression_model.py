@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, TimeDistributed, GRU
+from tensorflow.keras.layers import LSTM, Dense, TimeDistributed, GRU, Dropout
 from tensorflow.keras.optimizers import Adam
 
 def create_rnn_model(input_shape):
