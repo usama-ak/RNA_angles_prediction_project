@@ -1,9 +1,13 @@
-from utils.datapreprocess_reg import prepare_data, convert_to_tensors
-from models.regression.regression_model import create_rnn_model
-from utils.evaluate_models import print_evaluation_metrics, plot_angles, plot_learning_curves
 import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping
 import os
+import sys
+from os.path import dirname, abspath
+parent_dir = dirname(dirname(abspath(__file__)))
+sys.path.append(parent_dir)
+from utils.evaluate_models import print_evaluation_metrics, plot_angles, plot_learning_curves
+from utils.datapreprocess_reg import prepare_data, convert_to_tensors
+from models.regression.regression_model import create_rnn_model
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_folder = os.path.join(current_dir, '..', 'data')
