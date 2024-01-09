@@ -2,8 +2,8 @@ import os
 import json
 import numpy as np
 from YourModelClass import YourModelClass  
-from src.utils.GetSequencesAndAngles import GetSequencesAndAngles
-from src.utils.Sequences_padding_and_masking import padding_onehot 
+from src.PrepareData import prepare_data
+
 
 class AngleHelper:
     def __init__(self, *args, **kwargs):
