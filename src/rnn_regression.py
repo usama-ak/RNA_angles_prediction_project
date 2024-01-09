@@ -1,4 +1,4 @@
-from utils.datapreprocess import prepare_data, convert_to_tensors
+from utils.datapreprocess_reg import prepare_data, convert_to_tensors
 from models.regression.regression_model import create_rnn_model
 from utils.evaluate_models import print_evaluation_metrics, plot_angles, plot_learning_curves
 import tensorflow as tf
