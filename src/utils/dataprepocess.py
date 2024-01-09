@@ -2,6 +2,7 @@ import json
 import torch
 import os
 import glob
+import tensorflow as tf
 
 def GetSequencesAndAngles(file_path):
     with open(file_path, 'r') as file:
@@ -57,3 +58,14 @@ def prepare_data(data_path, max_length=395):
     masks = torch.stack(masks)
 
     return seq_encoded, angles_encoded, masks
+
+
+def convert_to_tensors(seq_encoded, angles_encoded, masks):
+    seq_encoded_tensor = tf.convert_to_tensor(seq_encoded)
+    seq_encoded_tensor = tf.reshape(seq_encoded_tensor, (seq_encoded_tensor.shape[0], seq_encoded_tensor.shape[2], seq_encoded_tensor.shape[3]))
+    angles_encoded_tensor = tf.convert_to_tensor(angles_encoded)
+    angles_encoded_tensor = tf.expand_dims(angles_encoded_tensor, axis=-1)
+    masks_tensor = tf.convert_to_tensor(masks)
+    masks_tensor = tf.transpose(masks_tensor, perm=[0, 2, 1])
+
+    return seq_encoded_tensor, angles_encoded_tensor, masks_tensor
