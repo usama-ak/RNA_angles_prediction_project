@@ -6,7 +6,7 @@ from utils.datapreprocess_reg import prepare_data, convert_to_tensors
 from models.regression.regression_model import create_rnn_model
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-data_folder = os.path.join(current_dir, '..' ,'..', 'data')
+data_folder = os.path.join(current_dir, '..', 'data')
 
 train_path = os.path.join(data_folder, 'AngleFilesOutput')
 test_path = os.path.join(data_folder, 'AngleFilesTestOutput')
