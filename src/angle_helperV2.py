@@ -36,14 +36,14 @@ class AngleHelper:
         # Use the model for prediction
         for i, (seq_id, seq_data) in enumerate(encoded_sequences.items()):
             predictions = self.model_instance.predict_angles(np.array([padded_sequences[i]]))
-            encoded_sequences[seq_id]["angles"]["alpha"] = predictions.tolist()[0]
+            encoded_sequences[seq_id]["angles"]["beta"] = predictions.tolist()[0]
 
         # Save the results to a JSON file
         with open(out_path, 'w') as json_file:
             json.dump(encoded_sequences, json_file, indent=2)
 
 if __name__ == "__main__":
-    in_path = os.path.join("path_to_your_file", "exemple.fasta")  # Replace with the actual path to your file
+    in_path = os.path.join("data", "sample", "exemple.fasta")  # Replace with the actual path to your file
     out_path = "sample.json"
     angle_helper = AngleHelper()
     angle_helper.predict(in_path, out_path)
