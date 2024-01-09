@@ -37,7 +37,7 @@ class AngleHelper:
                 "sequence": sequence[0],
                 "beta angles classes": predicted_non_padded.tolist()
             }
-
+            
             # Write predictions to the output file
             with open(out_path, 'w') as output_file:
                 json.dump(predictions, output_file, indent=2)
@@ -49,7 +49,6 @@ class AngleHelper:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Angle prediction for nucleotide sequences")
     parser.add_argument("--binary", action="store_true", help="Perform binary angle prediction")
-
     args = parser.parse_args()
     
     in_path = os.path.join("data", "sample", "example.fasta")
