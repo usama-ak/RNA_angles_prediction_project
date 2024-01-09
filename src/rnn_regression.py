@@ -3,12 +3,19 @@ from models.regression.regression_model import create_rnn_model
 from utils.evaluate_models import print_evaluation_metrics, plot_angles, plot_learning_curves
 import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping
+import os
 
-train_path = r"../../../data/AngleFilesOutput//"
+# Get the absolute path of the current script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Define the relative path to the data folder
+data_folder = os.path.join(current_dir, '..', 'data')
+
+train_path = os.path.join(data_folder, 'AngleFilesOutput')
 trainseq_encoded, trainangles_encoded, trainmasks = prepare_data(train_path)
 
-test_path = r"../../../data/AngleFilesTestOutput//"
+test_path = os.path.join(data_folder, 'AngleFilesTestOutput')
 testseq_encoded, testangles_encoded, testmasks = prepare_data(test_path)
+
 
 train_seq_tensor, train_angles_tensor, train_masks_tensor = convert_to_tensors(trainseq_encoded, trainangles_encoded, trainmasks)
 test_seq_tensor, test_angles_tensor, test_masks_tensor = convert_to_tensors(testseq_encoded, testangles_encoded, testmasks)
