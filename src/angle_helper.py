@@ -1,36 +1,60 @@
 import os
+import json
+import argparse
+import torch
+from input_preprocess import get_sequences_from_fasta, one_hot_encode_sequence
+from multiple_cl_model import AnglePredictionRNNmulti
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+multi_model_path = os.path.join(current_dir, 'models' ,'classification', 'model_multi.pt')
 
 class AngleHelper:
-  def __init__(self, *args, **kwargs):
-    # TO BE COMPLETE
-    pass
+    def __init__(self, binary=False):
+        self.binary = binary
 
+    def predict(self, in_path: str, out_path: str):
+        fasta_file_path = os.path.join(current_dir, in_path)
+        sequence = get_sequences_from_fasta(fasta_file_path)
+        encoded_sequence, mask = one_hot_encode_sequence(sequence[0])
+        encoded_sequence = encoded_sequence.unsqueeze(0)
+        mask = mask.unsqueeze(0)
+        mask = mask.unsqueeze(0)
+        predictions = {}
 
-  def predict(self, in_path: str, out_path: str):
-    """
-    Function that should predict the angles for the sequence of nucleotides
-    Args:
-      - in_path: path to a `fasta` file.
-        Example:
-          "
-          >17EP
-          ACGUUCU
-          "
-      - out_path: path to a `.json` file where will be stored the prediciton.
-        It should have the following keys: (example with `alpha` angle)
-          {
-            "17EP": {
-              "sequence": "ACGUUCU",
-              "angles": {"alpha": [0, 0, 0, 0, 0, 0, 0]}
+        if self.binary:
+            print("Performing binary angle prediction...")
+            # Implement logic for binary angle prediction
+        else:
+            print("Performing multiple class angle prediction...")
+            model = AnglePredictionRNNmulti()
+            model.load_state_dict(torch.load(multi_model_path))
+            outputs = model(encoded_sequence, mask)
+            _, predicted = torch.max(outputs, 2)
+            non_padded_indices = (mask.squeeze(2) == 1).view(-1)
+            predicted_non_padded = predicted.view(-1)[non_padded_indices]
+            print(predicted_non_padded)
+            predictions= {
+                "sequence": sequence[0],
+                "beta angles classes": predicted_non_padded.tolist()
             }
 
-          }
-    """
-    return None
+            # Write predictions to the output file
+            with open(out_path, 'w') as output_file:
+                json.dump(predictions, output_file, indent=2)
+            print(f"Predictions saved to {out_path}")
+
+            
+
 
 if __name__ == "__main__":
-    # Example of usage
+    parser = argparse.ArgumentParser(description="Angle prediction for nucleotide sequences")
+    parser.add_argument("--binary", action="store_true", help="Perform binary angle prediction")
+
+    args = parser.parse_args()
+    
     in_path = os.path.join("data", "sample", "example.fasta")
-    out_path = "sample.json"
-    angle_helper = AngleHelper()
+    out_path = os.path.join(current_dir, "sample.json")
+    binary = args.binary
+
+    angle_helper = AngleHelper(binary)
     angle_helper.predict(in_path, out_path)

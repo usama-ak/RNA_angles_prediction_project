@@ -1,11 +1,10 @@
 from Bio import SeqIO
 
 def get_sequences_from_fasta(fasta_file):
-    sequences = {}
+    sequences = []
     for record in SeqIO.parse(fasta_file, "fasta"):
-        sequences[record.id] = str(record.seq)
+        sequences.append(str(record.seq))
     return sequences
-
 
 import torch
 
@@ -16,7 +15,7 @@ def one_hot_encode_sequence(sequence):
     # Convert the sequence to a list of integers using the mapping
     sequence_int = [mapping.get(base, -1) for base in sequence]
     # Pad sequence to the maximum length
-    max_length = 10
+    max_length = 395
     padded_sequence_int = sequence_int + [0] * (max_length - len(sequence_int))
 
     # Perform one-hot encoding manually
