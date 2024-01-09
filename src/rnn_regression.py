@@ -1,6 +1,6 @@
-from src.utils.datapreprocess import prepare_data, convert_to_tensors
-from src.models.regression.regression_model import create_rnn_model
-from src.utils.evaluate_models import print_evaluation_metrics, plot_angles, plot_learning_curves
+from utils.datapreprocess import prepare_data, convert_to_tensors
+from models.regression.regression_model import create_rnn_model
+from utils.evaluate_models import print_evaluation_metrics, plot_angles, plot_learning_curves
 import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping
 
