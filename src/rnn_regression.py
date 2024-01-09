@@ -5,15 +5,12 @@ import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping
 import os
 
-# Get the absolute path of the current script
-current_dir = os.path.dirname(os.path.abspath(__file__))
-# Define the relative path to the data folder
-data_folder = os.path.join(current_dir, '..', 'data')
+base_path = os.path.dirname(os.path.realpath(__file__))
 
-train_path = os.path.join(data_folder, 'AngleFilesOutput')
+train_path = os.path.join(base_path, "data", "AngleFilesOutput")
+test_path = os.path.join(base_path, "data", "AngleFilesTestOutput")
+
 trainseq_encoded, trainangles_encoded, trainmasks = prepare_data(train_path)
-
-test_path = os.path.join(data_folder, 'AngleFilesTestOutput')
 testseq_encoded, testangles_encoded, testmasks = prepare_data(test_path)
 
 
