@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 
-# Define the RNN model
 class AnglePredictionRNN(nn.Module):
     def __init__(self, input_size, hidden_size, output_size, num_layers=4, dropout=0.5):
         super(AnglePredictionRNN, self).__init__()
@@ -23,9 +22,9 @@ class AnglePredictionRNN(nn.Module):
         # LSTM forward pass
         output, _ = self.lstm(x, (h0, c0))
         # Apply mask to ignore padded values
-        mask_tr = mask.transpose(1, 2)  # Squeeze and transpose to move the singleton dimension to the third position
-        expanded_mask = mask_tr.expand(-1,-1,output.size(2))  # Expand to match the output tensor
-        output = output * expanded_mask  # Apply the mask directly
+        mask_tr = mask.transpose(1, 2)  
+        expanded_mask = mask_tr.expand(-1,-1,output.size(2))  
+        output = output * expanded_mask 
         # Apply dropout
         output = self.dropout(output)
         # Fully connected layer
