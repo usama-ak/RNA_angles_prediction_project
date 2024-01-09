@@ -2,11 +2,11 @@ import os
 import json
 import argparse
 import torch
-from input_preprocess import get_sequences_from_fasta, one_hot_encode_sequence
-from multiple_cl_model import AnglePredictionRNNmulti
+from src.utils.input_preprocess import get_sequences_from_fasta, one_hot_encode_sequence
+from src.models.classification.multiple_cl_model import AnglePredictionRNNmulti
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-multi_model_path = os.path.join(current_dir, 'models' ,'classification', 'model_multi.pt')
+multi_model_path = os.path.join(current_dir,'src' , 'models' ,'classification', 'model_multi.pt')
 
 class AngleHelper:
     def __init__(self, binary=False):
