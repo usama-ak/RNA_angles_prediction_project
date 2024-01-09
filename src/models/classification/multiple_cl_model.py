@@ -3,7 +3,7 @@ import torch.nn as nn
 
 class AnglePredictionRNNmulti(nn.Module):
     def __init__(self, input_size=4, hidden_size=64, output_size=40, num_layers=4, dropout=0.5):
-        super(AnglePredictionRNN, self).__init__()
+        super(AnglePredictionRNNmulti, self).__init__()
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         # Normalization layer
