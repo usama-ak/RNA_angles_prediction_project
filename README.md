@@ -59,4 +59,4 @@ The requirements are specified in the `requirements.txt` file.
 
 - [Usama AKHTAR](https://github.com/usama-ak)
 - [Ali YOUNCHA](https://github.com/MrAli1582)
-- [Abdelouahab ELKOUADI]()
+- [Abdelouahab ELKOUADI](https://github.com/ouahab0097)
