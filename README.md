@@ -58,5 +58,5 @@ The requirements are specified in the `requirements.txt` file.
 ## Authors
 
 - [Usama AKHTAR](https://github.com/usama-ak)
-- [Ali YOUCHA](https://github.com/MrAli1582)
+- [Ali YOUNCHA](https://github.com/MrAli1582)
 - [Abdelouahab ELKOUADI]()
