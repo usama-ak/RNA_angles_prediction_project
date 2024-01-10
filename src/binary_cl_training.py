@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 from models.classification.binary_cl_model import BinaryClassificationRNN
 import torch.nn.functional as F
+import os
 
 ## Here we categorize angles into two classes (0 and 1) to perform binary classification 
 ## Class 0 corresponds to the angles having a value less than 0,  and class 1 the opposite
