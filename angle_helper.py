@@ -55,7 +55,7 @@ class AngleHelper:
                 "beta angles classes": predicted_non_padded.tolist()
             }
 
-            ## Then we write predictions to the output file
+        ## Then we write predictions to the output file
         with open(out_path, 'w') as output_file:
             json.dump(predictions, output_file, indent=2)
         print(f"Predictions saved to {out_path}")
