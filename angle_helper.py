@@ -44,7 +44,6 @@ class AngleHelper:
             _, predicted = torch.max(outputs, 2)
             non_padded_indices = (mask.squeeze(2) == 1).view(-1)
             predicted_non_padded = predicted.view(-1)[non_padded_indices]
-            print(predicted_non_padded)
             predictions= {
                 "sequence": sequence[0],
                 "beta angles classes": predicted_non_padded.tolist()
