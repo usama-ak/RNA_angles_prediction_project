@@ -10,7 +10,7 @@ def categorize_angles(angle):
     else:
         return 1
 
-def BC_train(model, train_path="C:/Users/usama/Desktop/m2_geniomhe_rna_project-main/data/AngleFilesOutput", epochs=1000):
+def BC_train(model, train_path="path_to_AngleFilesOutput", epochs=1000):
     X_train, Y_train, train_masks = prepare_data(train_path)
     Y_train_labels = [[categorize_angles(angle) for angle in angles] for angles in Y_train]
     Y_train_labels = torch.tensor(Y_train_labels)
