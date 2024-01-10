@@ -7,17 +7,14 @@ from models.regression.regression_model import create_rnn_model
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_folder = os.path.join(current_dir, '..', 'data')
-
 train_path = os.path.join(data_folder, 'AngleFilesOutput')
 test_path = os.path.join(data_folder, 'AngleFilesTestOutput')
 
 trainseq_encoded, trainangles_encoded, trainmasks = prepare_data(train_path)
 testseq_encoded, testangles_encoded, testmasks = prepare_data(test_path)
 
-
 train_seq_tensor, train_angles_tensor, train_masks_tensor = convert_to_tensors(trainseq_encoded, trainangles_encoded, trainmasks)
 test_seq_tensor, test_angles_tensor, test_masks_tensor = convert_to_tensors(testseq_encoded, testangles_encoded, testmasks)
-
 
 early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True, verbose=1)
 
