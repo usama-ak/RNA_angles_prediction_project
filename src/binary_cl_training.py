@@ -1,4 +1,4 @@
-from utils.dataprepocess_cl import prepare_data
+from utils.datapreprocess_cl import prepare_data
 import torch
 import torch.nn as nn
 from models.classification.binary_cl_model import BinaryClassificationRNN
