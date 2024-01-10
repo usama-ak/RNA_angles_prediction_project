@@ -74,7 +74,7 @@ def regression_test(model, test_path):
         plt.grid()
         plt.show()
 
-        # Print MSE and MAE
+        # Print MSE and MAE and R²
         print(f"Mean Squared Error (MSE): {mse}")
         print(f"Mean Absolute Error (MAE): {mae}")
         print(f"R-squared (R²): {r_squared}")
