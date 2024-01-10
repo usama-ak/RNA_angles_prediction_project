@@ -21,7 +21,7 @@ def GetSequencesAndAngles(file_path):
 def padding_onehot(sequences, angles, max_length):
     ## Padding the sequence to a maximum length
     padded_sequences = [seq + [0] * (max_length - len(seq)) for seq in sequences]
-    padded_sequences_tensor = torch.tensor(padded_sequences)  # Convert to PyTorch tensor
+    padded_sequences_tensor = torch.tensor(padded_sequences) 
     
     vocab_size = 4
     encoded_sequences = torch.zeros(len(padded_sequences), max_length, vocab_size)
