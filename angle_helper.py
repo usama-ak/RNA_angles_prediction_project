@@ -4,7 +4,7 @@ import argparse
 import torch
 from src.utils.input_preprocess import get_sequences_from_fasta, one_hot_encode_sequence
 from src.models.classification.multiple_cl_model import AnglePredictionRNNmulti
-from src.models.classification.BinaryClassificationRNN import BinaryClassificationRNN
+from src.models.classification.binary_cl_model import BinaryClassificationRNN
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 multi_model_path = os.path.join(current_dir,'src' , 'models' ,'classification', 'model_multi.pt')
@@ -35,7 +35,7 @@ class AngleHelper:
                 "sequence": sequence[0],
                 "beta angles classes": predicted_non_padded.tolist()
             }
-            
+
         else:
             print("Performing multiple class angle prediction...")
             model = AnglePredictionRNNmulti()
