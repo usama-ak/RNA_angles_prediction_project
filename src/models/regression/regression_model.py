@@ -1,22 +1,32 @@
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, TimeDistributed, GRU, Dropout
-from tensorflow.keras.optimizers import Adam
+import torch
+import torch.nn as nn
 
-## We create a regression model 
-def create_rnn_model(input_shape):
-    model = Sequential()
-    ## Then we add three layers to the model : GRU, Dropout (to drop some of the neurons) and LSTM
-    model.add(GRU(64, input_shape=input_shape, return_sequences=True))
-    model.add(Dropout(0.1))
-    model.add(LSTM(32, return_sequences=True))
-    ## We also add a TimeDistributed layer to apply Dense layer to each time step independently (so that we can output an angle value per nucleotide)
-    model.add(TimeDistributed(Dense(1, activation='linear'))) 
+class AnglePredictionRegression(nn.Module):
+    def __init__(self, input_size=4, hidden_size=64, output_size=1, num_layers=4, dropout=0.5):
+        super(AnglePredictionRegression, self).__init__()
+        self.hidden_size = hidden_size
+        self.num_layers = num_layers
+        
+        self.lstm = nn.LSTM(input_size, hidden_size, num_layers=num_layers, batch_first=True)
+        self.dropout = nn.Dropout(dropout)
+        self.fc = nn.Linear(hidden_size, output_size)
+        
+    def forward(self, x, mask):
+        h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(x.device)
+        c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(x.device)
+        
+        output, _ = self.lstm(x, (h0, c0))
 
-    ## Then we define hyperparameters (learning rate, optimizer)
-    custom_learning_rate = 0.001
-
-    optimizer = Adam(learning_rate=custom_learning_rate)
-
-    model.compile(optimizer=optimizer, loss='mean_absolute_error', metrics=['mae'], weighted_metrics=['mae'])
-    
-    return model 
+        # Apply mask to ignore padded values
+        if mask.shape[-2:] == torch.Size([1, 395]):
+            mask_tr = mask.transpose(1, 2)
+        else:
+            mask_tr = mask
+        
+        expanded_mask = mask_tr.expand(-1, -1, output.size(2)) 
+        output = output * expanded_mask
+        
+        output = self.dropout(output)
+        output = self.fc(output)
+        
+        return output
