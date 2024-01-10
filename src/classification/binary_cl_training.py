@@ -55,9 +55,10 @@ def BC_train(model, train_path="path_to_AngleFilesOutput", epochs=1000):
         optimizer.step()
 
     print("Training finished.")
+    
 if __name__ == "__main__":
     # Initialize the model
-    model = AnglePredictionRNN_binary()
+    model = BinaryClassificationRNNy()
     BC_train(model)
 
 
