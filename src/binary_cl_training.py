@@ -1,7 +1,7 @@
-from src.preprocessing.dataprepocess_cl import prepare_data
+from utils.dataprepocess_cl import prepare_data
 import torch
 import torch.nn as nn
-from src.models.classification.binary_cl_model import BinaryClassificationRNN
+from models.classification.binary_cl_model import BinaryClassificationRNN
 import torch.nn.functional as F
 
 ## Here we categorize angles into two classes (0 and 1) to perform binary classification 
@@ -13,7 +13,7 @@ def categorize_angles(angle):
         return 1
         
 ## Then we use the binary classification model we created before on the train data, by setting a number of epochs equal to 1000
-def BC_train(model, train_path="path_to_AngleFilesOutput", epochs=1000):
+def BC_train(model, train_path, epochs=1000):
     X_train, Y_train, train_masks = prepare_data(train_path)
     ## We convert angles to binary labels (0 or 1)
     Y_train_labels = [[categorize_angles(angle) for angle in angles] for angles in Y_train]
@@ -61,7 +61,10 @@ def BC_train(model, train_path="path_to_AngleFilesOutput", epochs=1000):
     print("Training finished.")
     
 if __name__ == "__main__":
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    data_folder = os.path.join(current_dir, '..', 'data')
+    train_path = os.path.join(data_folder, 'AngleFilesOutput')
     model = BinaryClassificationRNNy()
-    BC_train(model)
+    BC_train(model, train_path= train_path)
 
 
