@@ -1,7 +1,7 @@
-from src.prepocessing.dataprepocess import prepare_data
+from src.preprocessing.dataprepocess_cl import prepare_data
 import torch
 import torch.nn as nn
-from BC_model import BinaryClassificationRNN
+from src.models.classification.binary_cl_model import BinaryClassificationRNN
 import torch.nn.functional as F
 
 def categorize_angles(angle):
