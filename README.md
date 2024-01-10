@@ -3,7 +3,7 @@
 This code performs RNA angle prediction using RNN-based models for both binary and multiple class classification.
 
 ## Requirements
-The requitements are specified in the `requirements.txt` file.
+The requirements are specified in the `requirements.txt` file.
 
 ## Usage
 
