@@ -65,7 +65,7 @@ if __name__ == "__main__":
     current_dir = os.path.dirname(os.path.abspath(__file__))
     data_folder = os.path.join(current_dir, '..', 'data')
     train_path = os.path.join(data_folder, 'AngleFilesOutput')
-    model = BinaryClassificationRNNy()
+    model = BinaryClassificationRNN()
     BC_train(model, train_path= train_path)
 
 
