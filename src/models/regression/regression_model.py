@@ -17,7 +17,6 @@ class AnglePredictionRegression(nn.Module):
         
         output, _ = self.lstm(x, (h0, c0))
 
-        # Apply mask to ignore padded values
         if mask.shape[-2:] == torch.Size([1, 395]):
             mask_tr = mask.transpose(1, 2)
         else:
